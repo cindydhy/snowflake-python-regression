@@ -20,11 +20,19 @@ con = snowflake.connector.connect(
 
 cur = con.cursor()
 
-query = "SELECT DISTINCT COLUMN_NAME FROM WINE_DB.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'WHITE_WINE_QUALITY';"
+query = "SELECT DISTINCT COLUMN_NAME, ORDINAL_POSITION FROM WINE_DB.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'WHITE_WINE_QUALITY' ORDER BY ORDINAL_POSITION;"
 cur.execute(query)
-column_names = cur.fetchall()
-for names in column_names:
-    print(names[0])
+all_results = cur.fetchall()
+column_names = []
+for names in all_results:
+    column_names.append(names)
+
+print("column names: " + str(column_names))
+
+query = "SELECT * FROM " + SNOWFLAKE_DATABASE + " WHERE TABLE_NAME = 'WHITE_WINE_QUALITY';"
+cur.execute(query)
+first_result = cur.fetchone()
+print(first_result)
 
 cur.close()
 con.close()
