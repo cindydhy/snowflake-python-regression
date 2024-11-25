@@ -31,7 +31,7 @@ print("column names: " + str(column_names))
 
 query = "SELECT * FROM WHITE_WINE_QUALITY LIMIT 1';"
 cur.execute(query)
-first_result = cur.fetchone()
+first_result = cur.fetchall()
 print(first_result)
 
 cur.close()
