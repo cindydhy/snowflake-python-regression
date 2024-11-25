@@ -29,7 +29,7 @@ for names in all_results:
 
 print("column names: " + str(column_names))
 
-query = "SELECT * FROM WHITE_WINE_QUALITY';"
+query = "SELECT * FROM WHITE_WINE_QUALITY LIMIT 1';"
 cur.execute(query)
 first_result = cur.fetchone()
 print(first_result)
