@@ -25,11 +25,11 @@ cur.execute(query)
 all_results = cur.fetchall()
 column_names = []
 for names in all_results:
-    column_names.append(names)
+    column_names.append(names[0])
 
 print("column names: " + str(column_names))
 
-query = "SELECT * FROM " + SNOWFLAKE_DATABASE + " WHERE TABLE_NAME = 'WHITE_WINE_QUALITY';"
+query = "SELECT * FROM WHITE_WINE_QUALITY';"
 cur.execute(query)
 first_result = cur.fetchone()
 print(first_result)
