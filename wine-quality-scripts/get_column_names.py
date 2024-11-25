@@ -21,8 +21,9 @@ con = snowflake.connector.connect(
 cur = con.cursor()
 
 query = "SELECT DISTINCT COLUMN_NAME FROM WINE_DB.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'WHITE_WINE_QUALITY';"
-column_names = cur.execute(query)
-print(column_names)
+cur.execute(query)
+first_result = cur.fetchone()
+print(first_result)
 
 cur.close()
 con.close()
