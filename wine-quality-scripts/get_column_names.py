@@ -22,8 +22,8 @@ cur = con.cursor()
 
 query = "SELECT DISTINCT COLUMN_NAME FROM WINE_DB.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'WHITE_WINE_QUALITY';"
 cur.execute(query)
-first_result = cur.fetchone()
-print(first_result)
+first_result = cur.fetchall()
+print(column_names)
 
 cur.close()
 con.close()
