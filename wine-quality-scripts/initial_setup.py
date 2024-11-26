@@ -20,6 +20,7 @@ con = snowflake.connector.connect(
 
 cur = con.cursor()
 
+# get column names for md5 checksum
 query = "SELECT DISTINCT COLUMN_NAME, ORDINAL_POSITION FROM WINE_DB.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'WHITE_WINE_QUALITY' ORDER BY ORDINAL_POSITION;"
 cur.execute(query)
 all_results = cur.fetchall()
@@ -29,18 +30,22 @@ for names in all_results:
 
 print("column names: " + str(column_names))
 
-# resource tables
-resource_tables = ['GD_ACCOUNT_ADT', 'GD_ALLERGY_INTOLERANCE_ADT', 'GD_BUNDLE_RESOURCE_METADATA_ADT', 'GD_CONDITION_ADT', 'GD_CONTRACT_ADT']
-
+# get resource tables
 query = "SELECT TABLE_NAME FROM WINE_DB.INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%%GD%%';"
 cur.execute(query)
 all_results = cur.fetchall()
 table_names = []
 
 for names in all_results:
-    print("looping")
     table_names.append(names[0])
-print("column names: " + str(table_names))
+
+print("table names: " + str(table_names))
+
+for table in table_names:
+    query = "INSERT INTO " + table + " SELECT * FROM WHITE_WINE_QUALITY;"
+    cur.execute(query)
+    query = "UPDATE " + table + " SET GD_MD5_VALUE=MD5(TO_VARCHAR(ARRAY_CONSTRUCT(" + column_names + ")));"
+    cur.execute(query)
 
 cur.close()
 con.close()
