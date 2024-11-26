@@ -28,7 +28,7 @@ table_names = []
 
 for names in all_results:
     print("looping")
-    table_names.append(names[1])
+    table_names.append(names[0])
 print("column names: " + str(table_names))
 
 cur.close()

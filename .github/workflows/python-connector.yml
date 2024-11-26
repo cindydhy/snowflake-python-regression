@@ -37,6 +37,13 @@ jobs:
           python3 $GITHUB_WORKSPACE/wine-quality-scripts/get_column_names.py
         
       - name: Copy data from WHITE_WINE_QUALITY into GD tables and generate MD5 checksum
+        env:
+          SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
+          SF_USERNAME: ${{ secrets.SF_USERNAME }}
+          SF_ROLE: ${{ secrets.SF_ROLE }}
+          SF_WAREHOUSE: ${{ secrets.SF_WAREHOUSE }}
+          SF_DATABASE: ${{ secrets.SF_DATABASE }}
+          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
         run: 
           echo "copying data from WHITE_WINE_QUALITY into GD tables"
           python3 $GITHUB_WORKSPACE/wine-quality-scripts/copy_data_generate_md5.py
