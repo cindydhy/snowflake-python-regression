@@ -32,9 +32,15 @@ print("column names: " + str(column_names))
 # resource tables
 resource_tables = ['GD_ACCOUNT_ADT', 'GD_ALLERGY_INTOLERANCE_ADT', 'GD_BUNDLE_RESOURCE_METADATA_ADT', 'GD_CONDITION_ADT', 'GD_CONTRACT_ADT']
 
+query = "SELECT TABLE_NAME FROM WINE_DB.INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%%GD%%';"
+cur.execute(query)
+all_results = cur.fetchall()
+table_names = []
 
-query = "SELECT * FROM WHITE_WINE_QUALITY LIMIT 1;"
-
+for names in all_results:
+    print("looping")
+    table_names.append(names[0])
+print("column names: " + str(table_names))
 
 cur.close()
 con.close()
