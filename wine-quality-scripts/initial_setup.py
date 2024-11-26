@@ -1,5 +1,6 @@
 import snowflake.connector
 import os
+import sys
 
 SNOWFLAKE_ACCOUNT = os.environ['SF_ACCOUNT']
 SNOWFLAKE_USERNAME = os.environ['SF_USERNAME']
@@ -34,15 +35,24 @@ print("column names: " + str(column_names))
 query = "SELECT TABLE_NAME FROM WINE_DB.INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%%GD%%';"
 cur.execute(query)
 all_results = cur.fetchall()
-table_names = []
+table_names = "("
+count = 0
+
+if len(all_results) == 0:
+    print("golden data tables not created")
+    sys.exit()
+
 
 for names in all_results:
-    table_names.append(names[0])
+    table_names += names
+    if (count != 0 and count != len(all_results - 1)):
+        table_names += ", "
+table_names += ")"
 
-print("table names: " + str(table_names))
+print("table names: " + table_names)
 
 for table in table_names:
-    query = "INSERT INTO " + table + tuple(column_names) + " SELECT * FROM WHITE_WINE_QUALITY;"
+    query = "INSERT INTO " + table + column_names + " SELECT * FROM WHITE_WINE_QUALITY;"
     print(query)
     cur.execute(query)
     query = "UPDATE " + table + " SET GD_MD5_VALUE=MD5(TO_VARCHAR(ARRAY_CONSTRUCT(" + column_names + ")));"
