@@ -1,4 +1,4 @@
-name: snowflake-devops-demo
+name: python-connector
 
 # Controls when the action will run. 
 on:
