@@ -44,7 +44,7 @@ if len(all_results) == 0:
 
 
 for names in all_results:
-    table_names += names
+    table_names += str(names)
     if (count != 0 and count != len(all_results - 1)):
         table_names += ", "
 table_names += ")"
