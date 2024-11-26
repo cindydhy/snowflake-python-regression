@@ -1,6 +1,8 @@
 import snowflake.connector
 import os
 
+print("running program")
+
 SNOWFLAKE_ACCOUNT = os.environ['SF_ACCOUNT']
 SNOWFLAKE_USERNAME = os.environ['SF_USERNAME']
 SNOWFLAKE_PASSWORD = os.environ['SF_PASSWORD']
