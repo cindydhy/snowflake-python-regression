@@ -22,8 +22,10 @@ cur = con.cursor()
 
 # get list of tables to copy WHITE_WINE_QUALITY into
 query = "SELECT TABLE_NAME FROM WINE_DB.INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%%GD%%';"
+print("executing query")
 cur.execute(query)
 all_results = cur.fetchall()
+print("query executed")
 table_names = []
 
 for names in all_results:
