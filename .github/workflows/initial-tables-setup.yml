@@ -31,7 +31,7 @@ jobs:
           SF_ROLE: ${{ secrets.SF_ROLE }}
           SF_WAREHOUSE: ${{ secrets.SF_WAREHOUSE }}
           SF_DATABASE: ${{ secrets.SF_DATABASE }}
-          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }}
         run : |
           echo "creating new wine tables"
           schemachange -f $GITHUB_WORKSPACE/wine-quality-scripts -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table
