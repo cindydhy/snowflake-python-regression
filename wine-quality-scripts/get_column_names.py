@@ -29,10 +29,12 @@ for names in all_results:
 
 print("column names: " + str(column_names))
 
+# resource tables
+resource_tables = ['GD_ACCOUNT_ADT', 'GD_ALLERGY_INTOLERANCE_ADT', 'GD_BUNDLE_RESOURCE_METADATA_ADT', 'GD_CONDITION_ADT', 'GD_CONTRACT_ADT']
+
+
 query = "SELECT * FROM WHITE_WINE_QUALITY LIMIT 1;"
-cur.execute(query)
-first_result = cur.fetchall()
-print(first_result)
+
 
 cur.close()
 con.close()
