@@ -41,9 +41,6 @@ for columns in all_results:
     count += 1
 column_names += ")"
 
-for names in all_results:
-    column_names.append(names[0])
-
 print("column names: " + column_names)
 
 # get resource tables
