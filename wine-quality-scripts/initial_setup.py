@@ -25,34 +25,41 @@ cur = con.cursor()
 query = "SELECT DISTINCT COLUMN_NAME, ORDINAL_POSITION FROM WINE_DB.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'WHITE_WINE_QUALITY' ORDER BY ORDINAL_POSITION;"
 cur.execute(query)
 all_results = cur.fetchall()
-column_names = []
+
+# check if golden data tables are created
+if len(all_results) == 0:
+    print("golden data tables not created")
+    sys.exit()
+
+column_names = "("
+count = 0
+
+for columns in all_results:
+    column_names += str(columns[0])
+    if (count != 0 and count != len(all_results - 1)):
+        column_names += ", "
+    count += 1
+column_names += ")"
+
 for names in all_results:
     column_names.append(names[0])
 
-print("column names: " + str(column_names))
+print("column names: " + column_names)
 
 # get resource tables
 query = "SELECT TABLE_NAME FROM WINE_DB.INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%%GD%%';"
 cur.execute(query)
 all_results = cur.fetchall()
-table_names = "("
+table_names = []
 count = 0
 
-if len(all_results) == 0:
-    print("golden data tables not created")
-    sys.exit()
+for tables in all_results:
+    table_names.append(tables[0])
 
-
-for names in all_results:
-    table_names += str(names[0])
-    if (count != 0 and count != len(all_results - 1)):
-        table_names += ", "
-table_names += ")"
-
-print("table names: " + table_names)
+print("table names: " + str(table_names))
 
 for table in table_names:
-    query = "INSERT INTO " + table + column_names + " SELECT * FROM WHITE_WINE_QUALITY;"
+    query = "INSERT INTO " + table + " " + column_names + " SELECT * FROM WHITE_WINE_QUALITY;"
     print(query)
     cur.execute(query)
     query = "UPDATE " + table + " SET GD_MD5_VALUE=MD5(TO_VARCHAR(ARRAY_CONSTRUCT(" + column_names + ")));"
