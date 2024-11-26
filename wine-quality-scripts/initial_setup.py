@@ -42,7 +42,7 @@ for names in all_results:
 print("table names: " + str(table_names))
 
 for table in table_names:
-    query = "INSERT INTO " + table + str(tuple(column_names)) + " SELECT * FROM WHITE_WINE_QUALITY;"
+    query = "INSERT INTO " + table + tuple(column_names) + " SELECT * FROM WHITE_WINE_QUALITY;"
     print(query)
     cur.execute(query)
     query = "UPDATE " + table + " SET GD_MD5_VALUE=MD5(TO_VARCHAR(ARRAY_CONSTRUCT(" + column_names + ")));"
