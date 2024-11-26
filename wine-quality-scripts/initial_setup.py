@@ -31,7 +31,7 @@ if len(all_results) == 0:
     print("golden data tables not created")
     sys.exit()
 
-column_names = "("
+column_names = ""
 count = 0
 
 for columns in all_results:
@@ -39,7 +39,6 @@ for columns in all_results:
         column_names += ", "
     column_names += str(columns[0])
     count += 1
-column_names += ")"
 
 print("column names: " + column_names)
 
@@ -56,7 +55,7 @@ for tables in all_results:
 print("table names: " + str(table_names))
 
 for table in table_names:
-    query = "INSERT INTO " + table + " " + column_names + " SELECT " + column_names + " FROM WHITE_WINE_QUALITY;"
+    query = "INSERT INTO " + table + " (" + column_names + ") SELECT " + column_names + " FROM WHITE_WINE_QUALITY;"
     print(query)
     cur.execute(query)
     query = "UPDATE " + table + " SET GD_MD5_VALUE=MD5(TO_VARCHAR(ARRAY_CONSTRUCT" + column_names + "));"
