@@ -21,7 +21,7 @@ con = snowflake.connector.connect(
 cur = con.cursor()
 
 # get list of tables to copy WHITE_WINE_QUALITY into
-query = "SHOW TABLES LIKE '%%GD%%' IN WINE_DB.PUBLIC;"
+query = "SELECT TABLE_NAME FROM WINE_DB.INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME LIKE '%%GD%';"
 cur.execute(query)
 all_results = cur.fetchall()
 table_names = []
