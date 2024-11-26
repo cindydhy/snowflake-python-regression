@@ -35,3 +35,5 @@ jobs:
         run : |
           echo "printing wine quality table column names"
           python3 $GITHUB_WORKSPACE/wine-quality-scripts/get_column_names.py
+        
+      - name: Copy data from WHITE_WINE_QUALITY into GD tables and generate MD5 checksum
