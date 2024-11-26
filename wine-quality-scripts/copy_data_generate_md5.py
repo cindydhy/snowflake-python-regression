@@ -27,6 +27,7 @@ all_results = cur.fetchall()
 table_names = []
 
 for names in all_results:
+    print("looping")
     table_names.append(names[1])
 print("column names: " + str(table_names))
 
