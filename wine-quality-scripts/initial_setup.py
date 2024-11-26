@@ -35,7 +35,7 @@ column_names = "("
 count = 0
 
 for columns in all_results:
-    if (count != 0 and count != len(all_results) - 1):
+    if (count != 0):
         column_names += ", "
     column_names += str(columns[0])
     count += 1
