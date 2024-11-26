@@ -58,7 +58,7 @@ for table in table_names:
     query = "INSERT INTO " + table + " (" + column_names + ") SELECT " + column_names + " FROM WHITE_WINE_QUALITY;"
     print(query)
     cur.execute(query)
-    query = "UPDATE " + table + " SET GD_MD5_VALUE=MD5(TO_VARCHAR(ARRAY_CONSTRUCT" + column_names + "));"
+    query = "UPDATE " + table + " SET GD_MD5_VALUE=MD5(TO_VARCHAR(ARRAY_CONSTRUCT(" + column_names + ")));"
     print(query)
     cur.execute(query)
 
