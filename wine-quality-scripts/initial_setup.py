@@ -24,7 +24,7 @@ cur = con.cursor()
 query = "SELECT DISTINCT COLUMN_NAME, ORDINAL_POSITION FROM WINE_DB.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'WHITE_WINE_QUALITY' ORDER BY ORDINAL_POSITION;"
 cur.execute(query)
 all_results = cur.fetchall()
-column_names = []
+column_names = ()
 for names in all_results:
     column_names.append(names[0])
 
@@ -42,7 +42,7 @@ for names in all_results:
 print("table names: " + str(table_names))
 
 for table in table_names:
-    query = "INSERT INTO " + table + "(" + str(column_names) + ") SELECT * FROM WHITE_WINE_QUALITY;"
+    query = "INSERT INTO " + table + str(column_names) + " SELECT * FROM WHITE_WINE_QUALITY;"
     cur.execute(query)
     query = "UPDATE " + table + " SET GD_MD5_VALUE=MD5(TO_VARCHAR(ARRAY_CONSTRUCT(" + column_names + ")));"
     cur.execute(query)
